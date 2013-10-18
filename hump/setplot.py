@@ -63,7 +63,8 @@ def setplot(plotdata):
     def aa(current_data):
       from pylab import linspace,plot,annotate,text
       #gcs = 2.0/200.0
-      x = [-1.3,-1.3,1.3,1.3]
+      #x = [-1.3,-1.3,1.3,1.3]
+      x = [0.0,0.0,0.0,0.0]
       y = [-1000000,10000000,1000000,-1000000]
       #y[:] = [xx - gcs for xx in y]
       plot(x,y,'k',linewidth=2.0)
@@ -72,20 +73,20 @@ def setplot(plotdata):
       #plot(0.0, 180000, 'vk', markersize=10) 
       #plot(2.0, 180000, 'vk', markersize=10)
       text(2.0,285000,'Water',fontweight='bold',fontsize=20)
-      text(-0.8,285000,'PS',fontweight='bold',fontsize=20)
+      #text(-0.8,285000,'PS',fontweight='bold',fontsize=20)
       text(-8.0,285000,'Air',fontweight='bold',fontsize=20)
-      annotate('Gauges: \n1', xy=(-8.0, 250000), xytext=(-8, 270000),
-      arrowprops=dict(facecolor='black', shrink=0.05),
-      )
-      annotate('2', xy=(-2.0, 250000), xytext=(-2.0, 270000),
-      arrowprops=dict(facecolor='black', shrink=0.05),
-      )
-      annotate('3', xy=(0.0, 250000), xytext=(0, 270000),
-            arrowprops=dict(facecolor='black', shrink=0.05),
-            )
-      annotate('4', xy=(2.0, 250000), xytext=(2, 270000),
-            arrowprops=dict(facecolor='black', shrink=0.05),
-            )
+      #annotate('Gauges: \n1', xy=(-8.0, 250000), xytext=(-8, 270000),
+      #arrowprops=dict(facecolor='black', shrink=0.05),
+      #)
+      #annotate('2', xy=(-2.0, 250000), xytext=(-2.0, 270000),
+      #arrowprops=dict(facecolor='black', shrink=0.05),
+      #)
+      #annotate('3', xy=(0.0, 250000), xytext=(0, 270000),
+            #arrowprops=dict(facecolor='black', shrink=0.05),
+            #)
+      #annotate('4', xy=(2.0, 250000), xytext=(2, 270000),
+            #arrowprops=dict(facecolor='black', shrink=0.05),
+            #)
 
     plotaxes.afteraxes = aa
     
