@@ -37,9 +37,9 @@ SOURCES = \
   qinit.f \
   setprob.f \
   setaux.f \
+  bc1.f \
   b4step1.f \
   ../rp/rp1eu.f \
-  $(CLAW)/classic/src/1d/bc1.f \
   $(CLAW)/classic/src/1d/driver.f90 \
   $(CLAW)/classic/src/1d/claw1ez.f \
   $(CLAW)/classic/src/1d/claw1.f \

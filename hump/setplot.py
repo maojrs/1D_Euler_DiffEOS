@@ -41,7 +41,7 @@ def setplot(plotdata):
 
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.xlimits = [-8,16] #'auto'
+    plotaxes.xlimits = [-0.03,0.03] #'auto'
     plotaxes.ylimits =  [0.8, 1.5] #'auto'
     plotaxes.title = 'Density'
 
@@ -63,7 +63,7 @@ def setplot(plotdata):
     def aa(current_data):
       from pylab import linspace,plot,annotate,text
       #gcs = 2.0/200.0
-      x = [-1.3,-1.3,1.3,1.3]
+      x = [-0.0085,-0.0085,0.0085,0.0085]
       y = [-1000000,10000000,1000000,-1000000]
       #y[:] = [xx - gcs for xx in y]
       plot(x,y,'k',linewidth=2.0)
@@ -71,21 +71,23 @@ def setplot(plotdata):
       #plot(-2.0, 180000, 'vk', markersize=10) 
       #plot(0.0, 180000, 'vk', markersize=10) 
       #plot(2.0, 180000, 'vk', markersize=10)
-      text(2.0,285000,'Water',fontweight='bold',fontsize=20)
-      text(-0.8,285000,'PS',fontweight='bold',fontsize=20)
-      text(-8.0,285000,'Air',fontweight='bold',fontsize=20)
-      annotate('Gauges: \n1', xy=(-8.0, 250000), xytext=(-8, 270000),
-      arrowprops=dict(facecolor='black', shrink=0.05),
-      )
-      annotate('2', xy=(-2.0, 250000), xytext=(-2.0, 270000),
-      arrowprops=dict(facecolor='black', shrink=0.05),
-      )
-      annotate('3', xy=(0.0, 250000), xytext=(0, 270000),
-            arrowprops=dict(facecolor='black', shrink=0.05),
-            )
-      annotate('4', xy=(2.0, 250000), xytext=(2, 270000),
-            arrowprops=dict(facecolor='black', shrink=0.05),
-            )
+      text(-0.0075,285000,'Water',fontweight='bold',fontsize=20)
+      #text(-0.8,285000,'PS',fontweight='bold',fontsize=20)
+      text(-0.029,285000,'Air',fontweight='bold',fontsize=20)
+      text(0.0095,285000,'Air',fontweight='bold',fontsize=20)
+
+      #annotate('Gauges: \n1', xy=(-8.0, 250000), xytext=(-8, 270000),
+      #arrowprops=dict(facecolor='black', shrink=0.05),
+      #)
+      #annotate('2', xy=(-2.0, 250000), xytext=(-2.0, 270000),
+      #arrowprops=dict(facecolor='black', shrink=0.05),
+      #)
+      #annotate('3', xy=(0.0, 250000), xytext=(0, 270000),
+            #arrowprops=dict(facecolor='black', shrink=0.05),
+            #)
+      #annotate('4', xy=(2.0, 250000), xytext=(2, 270000),
+            #arrowprops=dict(facecolor='black', shrink=0.05),
+            #)
 
     plotaxes.afteraxes = aa
     
@@ -95,7 +97,7 @@ def setplot(plotdata):
 
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.xlimits = [-8,16] #'auto'
+    plotaxes.xlimits = [-0.03,0.03] #'auto'
     plotaxes.ylimits = [-100,150] #'auto'
     plotaxes.title = 'Momentum'
 
@@ -122,7 +124,7 @@ def setplot(plotdata):
 
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.xlimits = [-8,16] #'auto'
+    plotaxes.xlimits = [-0.03,0.03] #'auto'
     plotaxes.ylimits = [200000,400000] #'auto'
     plotaxes.title = 'Energy'
 
@@ -148,7 +150,7 @@ def setplot(plotdata):
 
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.xlimits = [-8.5,16]#[-8.5,16] #'auto'
+    plotaxes.xlimits = [-0.03,0.03]#[-8.5,16] #'auto'
     plotaxes.ylimits = 'auto'
     plotaxes.ylimits = [90000,300000] #'auto'
     #plotaxes.ylimits = [101305,101385] #'auto'
@@ -171,8 +173,10 @@ def setplot(plotdata):
         return P
 
     plotitem.plot_var = Pressure  # defined above
-    plotitem.plotstyle = '-o'
-    plotitem.color = 'r'
+    plotitem.plotstyle = '-kx'
+    plotitem.kwargs = {'markersize':3}
+    #plotitem.plotstyle = '-o'
+    #plotitem.color = 'r'
     
     # Plot interface
     plotaxes.afteraxes = aa
@@ -200,14 +204,14 @@ def setplot(plotdata):
       time[i] = float(data[i][0])
       PressureG[i] = float(data[i][1])
       
-    print max(PressureG)
-    plt.plot(time,PressureG)
-    plt.title('Pressure at Gauge 2 (x=-2.0)')
-    plt.xlabel('Time in seconds')
-    plt.ylabel('Pressure in Pa (N/m^2)')
-    plt.ylim(80000,300000)
-    plt.xlim(0.0,0.053)
-    plt.savefig('./_plots/gauge/Pressure.png')
+    #print max(PressureG)
+    #plt.plot(time,PressureG)
+    #plt.title('Pressure at Gauge 2 (x=-2.0)')
+    #plt.xlabel('Time in seconds')
+    #plt.ylabel('Pressure in Pa (N/m^2)')
+    #plt.ylim(80000,300000)
+    #plt.xlim(0.0,0.053)
+    #plt.savefig('./_plots/gauge/Pressure.png')
     
     #plotitem.plot_var = PressureG  # defined above
     #plotitem.plotstyle = '-o'

@@ -17,10 +17,12 @@ c
       common /param/ pinfgas,pinfplas,pinfwat
       common /param/ omegas,omeplas,omewat
       common /param/ rhog,rhop,rhow
+      
+      integer i
 c
       ! GAUGE for pressure (choose point to see pressure as a function of time)
       ! Choose x value to obtain pressure as a function of time
-      xcell = 2.0
+      xcell = 0.0
       i = floor((xcell - xlower)/dx + 0.5)
 
       ! Calculate pressure at point xcell
@@ -31,18 +33,10 @@ c
       rho = q(1,i)           ! density
       mom = q(2,i)           ! momentum
       ene = q(3,i)           ! energy
-      P = gamma1*(ene - 0.5*mom*mom/rho)/(1.0 - omega*rho)
-      P = P - gamma*pinf 
+      P = gamma1*(ene - 0.5*mom*mom/rho) - gamma*pinf 
      
-      ! Write Gauge data to file
+!       Write Gauge data to file
       write (22,*) t, P
-      
-      ! Save solution on aux array
-!       j = t/dt
-!       if (j < mx+mbc) then
-! 	aux(3,j+1) = P
-!       end if
-
       return
       end
 

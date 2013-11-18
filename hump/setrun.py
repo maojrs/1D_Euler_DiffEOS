@@ -65,11 +65,11 @@ def setrun(claw_pkg='classic'):
     clawdata.num_dim = num_dim
     
     # Lower and upper edge of computational domain:
-    clawdata.lower[0] = -1.600000e+01          # xlower
-    clawdata.upper[0] = 1.600000e+01          # xupper
+    clawdata.lower[0] = -0.03          # xlower
+    clawdata.upper[0] = 0.03          # xupper
     
     # Number of grid cells:
-    clawdata.num_cells[0] = 1700 #1000      # mx
+    clawdata.num_cells[0] = 800 #1000  # mx
     
 
     # ---------------
@@ -116,8 +116,8 @@ def setrun(claw_pkg='classic'):
     if clawdata.output_style==1:
         # Output ntimes frames at equally spaced times up to tfinal:
         # Can specify num_output_times = 0 for no output
-        clawdata.num_output_times = 40
-        clawdata.tfinal = 0.100000
+        clawdata.num_output_times = 300
+        clawdata.tfinal = 0.0002
         clawdata.output_t0 = True  # output at initial (or restart) time?
         
     elif clawdata.output_style == 2:
@@ -217,7 +217,7 @@ def setrun(claw_pkg='classic'):
     #   2 or 'periodic' => periodic (must specify this at both boundaries)
     #   3 or 'wall'     => solid wall for systems where q(2) is normal velocity
     
-    clawdata.bc_lower[0] = 'extrap'   # at xlower
+    clawdata.bc_lower[0] = 'user'   # at xlower
     clawdata.bc_upper[0] = 'extrap'   # at xupper
                   
     return rundata

@@ -27,8 +27,12 @@ c
 
       dimension mthbc(2)
       
-      dimension p(1:4000),pd(1:4000),time(1:4000)
-      common /param/ gammagas,gammaplas,pinfgas,pinfplas,omegas,omeplas
+!       dimension p(1:4000),pd(1:4000),time(1:4000)
+      dimension timeIC(500), pressure(500), p(0:2)
+      common /param/ gammagas, gammaplas, gammawat
+      common /param/ pinfgas,pinfplas,pinfwat
+      common /param/ omegas,omeplas,omewat
+      common /param/ rhog,rhop,rhow
       n = 4000
 c
 c
@@ -38,30 +42,38 @@ c-------------------------------------------------------
       go to (100,110,120,130) mthbc(1)+1
 c
   100 continue
-      p = 0.0
-      time = 0.0
-      rhog = 1.0
-      do 102 i=1,n
-	READ(2,*,IOSTAT=IOst) time(i), p(i)
-        if (time(i) > t .and. i>2) then
-          i0 = i
-          REWIND(2)
-	  go to 103
-	end if
-        if (IOst > 0) then
-	 go to 110
-	end if
-  102   continue
-        go to 110
 c     # user-specified boundary conditions go here in place of error output
-
-  103 continue
-      pd = 1.0*p
-      do 105 ibc=1,mbc
-            q(1,1-ibc) = rhog*p(i0-ibc)/p(1)
-            q(2,1-ibc) = dsqrt(2*q(1,1-ibc)*pd(i0-ibc))
-            q(3,1-ibc) = p(i0-ibc)/(gammagas - 1.0) + pd(i0-ibc)
-  105    continue
+      p0 = 101325.0
+      c0 = sqrt(gammagas*p0/rhog) 
+      p = p0
+      ! Read pressure and time data from file
+      open (25,file="a-pICtime.dat",action="read",status="old") 
+      do i=1,500
+          read(25,*) timeIC(i), pressure(i)
+      enddo
+      close(25)
+      
+      ! Look for correct value for pressure in data file
+      ddt = timeIC(100) - timeIC(101)
+      delt = max(ddt,dt)
+      do k=1,500
+        time2 = (timeIC(k) - 0.018758) 
+        if (abs(time2 - t) <  delt) then
+          ! Convert PSI to Pascals
+          p(0) = p0 + 6894.75729*pressure(k) !*exp(-0.1*ycell**2)
+        end if
+      end do
+      p(2) = p(0)
+      p(1) = p(0)
+      ! Assign corresponding pressure values to left boudary ghost cells
+      do ibc = 1, mbc  
+        q(1,1-ibc) = rhog*(p(ibc)/p0)**(1/gammagas)
+        q(2,1-ibc) = (2.0/(gammagas - 1.0))*(-c0 + 
+     & sqrt(gammagas*p(ibc)/q(1,1-ibc)))
+        q(3,1-ibc) = (p(ibc) + gammagas*pinfgas)/(gammagas - 1.0) +
+     & (q(2,1-ibc)**2)/(2.0*q(1,1-ibc))
+      end do
+      
       go to 199
 c
   110 continue

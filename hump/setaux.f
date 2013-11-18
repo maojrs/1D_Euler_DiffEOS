@@ -21,37 +21,30 @@ c
       do i=1-mbc,mx + mbc
 !         indexi = i + mbc
         xcell = xlower + (i-0.5d0)*dx
-        if (abs(xcell) < pwidth) then
-          aux(1,i) = gammaplas
-          aux(2,i) = pinfplas
-          aux(3,i) = omeplas
-        else if (xcell < -pwidth) then
-          aux(1,i) = gammagas
-          aux(2,i) = pinfgas
-          aux(3,i) = omegas
-        else
+        if (abs(xcell) .le. 0.0085) then
           aux(1,i) = gammawat
           aux(2,i) = pinfwat
           aux(3,i) = omewat
-        end if
+        else
+          aux(1,i) = gammagas
+          aux(2,i) = pinfgas
+          aux(3,i) = omegas
+        end if        
+        
+!         if (abs(xcell) < pwidth) then
+!           aux(1,i) = gammaplas
+!           aux(2,i) = pinfplas
+!           aux(3,i) = omeplas
+!         else if (xcell < -pwidth) then
+!           aux(1,i) = gammagas
+!           aux(2,i) = pinfgas
+!           aux(3,i) = omegas
+!         else
+!           aux(1,i) = gammawat
+!           aux(2,i) = pinfwat
+!           aux(3,i) = omewat
+!         end if
       end do
-
-!       do i=1-mbc,mx + mbc - 1
-! 	if (aux(1,i) .ne. aux(1,i+1)) then
-! 	    aux(1,i) = 0.5d0*(gamma + gamma2)
-! 	end if
-!       end do
-
-!       ! Smooth varying gamma
-!       gamma = 1.4
-!       gamma2 = 3.0
-!       do i=1-mbc,mx + mbc
-!         indexi = i + mbc
-! 	xcell = xlower + (indexi-0.5d0)*dx
-!         aux(2,i) = 0.0
-!         aux(1,i) = gamma + (gamma2 - gamma)*ATAN(10*xcell)/3.1416
-!       end do
-
 
 c
       return
